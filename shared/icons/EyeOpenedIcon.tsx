@@ -4,14 +4,14 @@ import Svg, {Path, SvgProps} from "react-native-svg";
 const EyeOpenedIcon = (props: SvgProps) => (
     <Svg width={24} height={24} fill="none" viewBox="0 0 24 24" {...props}>
         <Path
-            stroke="#000"
+            stroke="#ededed"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={1.5}
             d="M12 5C5.636 5 2 12 2 12s3.636 7 10 7 10-7 10-7-3.636-7-10-7Z"
         />
         <Path
-            stroke="#000"
+            stroke="#ededed"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={1.5}

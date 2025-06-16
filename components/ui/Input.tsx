@@ -1,15 +1,17 @@
-import EyeClosedIcon from "@/shared/icons/EyeClosedIcon";
-import EyeOpenedIcon from "@/shared/icons/EyeOpenedIcon";
 import {useState} from "react";
 import {ColorSchemeName, StyleSheet, useColorScheme, type TextInputProps} from "react-native";
 import {Pressable, TextInput} from "react-native-gesture-handler";
+
+import EyeClosedIcon from "@/shared/icons/EyeClosedIcon";
+import EyeOpenedIcon from "@/shared/icons/EyeOpenedIcon";
+import {ThemedView} from "../ThemedView";
 
 export type InputProps = TextInputProps & {
     isPassword?: boolean;
 };
 
 export function Input({style, isPassword, ...otherProps}: InputProps) {
-    const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const colorTheme = useColorScheme() ?? "light";
 
     const isDarkTheme = (themeName: ColorSchemeName) => {
@@ -18,10 +20,19 @@ export function Input({style, isPassword, ...otherProps}: InputProps) {
     const styles = makeStyles(isDarkTheme(colorTheme));
 
     return (
-        <>
-            <TextInput style={[styles.input, style]} placeholderTextColor="#636161" {...otherProps} />
-            {isPassword && <Pressable>{isPasswordVisible ? <EyeOpenedIcon /> : <EyeClosedIcon />}</Pressable>}
-        </>
+        <ThemedView>
+            <TextInput
+                style={[styles.input, style]}
+                secureTextEntry={isPassword && !isPasswordVisible}
+                placeholderTextColor="#636161"
+                {...otherProps}
+            />
+            {isPassword && (
+                <Pressable style={styles.eyeIcon} onPress={() => setIsPasswordVisible(prev => !prev)}>
+                    {isPasswordVisible ? <EyeOpenedIcon /> : <EyeClosedIcon />}
+                </Pressable>
+            )}
+        </ThemedView>
     );
 }
 
@@ -37,5 +48,11 @@ const makeStyles = (isDarkTheme: boolean) =>
             backgroundColor: isDarkTheme ? "#2c2d3c" : "#c3c3c3",
             borderRadius: 8,
             borderColor: "transparent"
+        },
+        eyeIcon: {
+            position: "absolute",
+            right: 0,
+            paddingHorizontal: 16,
+            paddingVertical: 8
         }
     });
