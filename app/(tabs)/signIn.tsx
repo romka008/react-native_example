@@ -1,14 +1,14 @@
-import {Image} from "expo-image";
-import React, {useState} from "react";
-import {ColorSchemeName, Dimensions, StyleSheet} from "react-native";
+import { Image } from "expo-image";
+import React, { useState } from "react";
+import { ColorSchemeName, Dimensions, StyleSheet } from "react-native";
 
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import {ThemedText} from "@/components/ThemedText";
-import {ThemedView} from "@/components/ThemedView";
-import {Button} from "@/components/ui/Button";
-import {ErrorNotification} from "@/components/ui/ErrorNotification";
-import {Input} from "@/components/ui/Input";
-import {useColorScheme} from "@/hooks/useColorScheme.web";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { Button } from "@/components/ui/Button";
+import { ErrorNotification } from "@/components/ui/ErrorNotification";
+import { Input } from "@/components/ui/Input";
+import { useColorScheme } from "@/hooks/useColorScheme.web";
 
 export default function HomeScreen() {
     const [formValue, setFormValue] = React.useState({
@@ -48,7 +48,7 @@ export default function HomeScreen() {
     return (
         <>
             <ErrorNotification error={error} />
-            <ParallaxScrollView headerBackgroundColor={{light: "#A1CEDC", dark: "#14151C"}}>
+            <ParallaxScrollView headerBackgroundColor={{ light: "#A1CEDC", dark: "#14151C" }}>
                 <ThemedView style={styles.container}>
                     <ThemedView style={styles.logotypeContainer}>
                         <Image source={require("@/assets/icons/react.svg")} style={styles.logo} />
@@ -56,13 +56,18 @@ export default function HomeScreen() {
                     </ThemedView>
                     <ThemedView style={styles.form}>
                         <Input
-                            onChangeText={text => setFormValue(prev => ({...prev, email: text}))}
+                            onChangeText={text => setFormValue(prev => ({ ...prev, email: text }))}
                             textContentType="emailAddress"
                             value={formValue.email}
                             placeholder="Email"
                         />
                         <Input
-                            onChangeText={text => setFormValue(prev => ({...prev, password: text}))}
+                            onChangeText={text =>
+                                setFormValue(prev => ({
+                                    ...prev,
+                                    password: text
+                                }))
+                            }
                             textContentType="password"
                             value={formValue.password}
                             placeholder="Password"
@@ -80,33 +85,13 @@ export default function HomeScreen() {
     );
 }
 
-const makeStyles = (isDarkTheme: boolean) =>
-    StyleSheet.create({
+const makeStyles = (isDarkTheme: boolean) => {
+    const styles = StyleSheet.create({
         container: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flex: 1
-        },
-        button: {
-            backgroundColor: "#5e64d9",
-            color: "#fff"
-        },
-        titleContainer: {
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 8
-        },
-        stepContainer: {
-            gap: 8,
-            marginBottom: 8
-        },
-        reactLogo: {
-            height: 178,
-            width: 290,
-            bottom: 0,
-            left: 0,
-            position: "absolute"
         },
         logotypeContainer: {
             display: "flex",
@@ -134,3 +119,5 @@ const makeStyles = (isDarkTheme: boolean) =>
             paddingTop: 24
         }
     });
+    return styles;
+};

@@ -1,16 +1,16 @@
-import {useState} from "react";
-import {ColorSchemeName, StyleSheet, useColorScheme, type TextInputProps} from "react-native";
-import {Pressable, TextInput} from "react-native-gesture-handler";
+import { useState } from "react";
+import { ColorSchemeName, StyleSheet, useColorScheme, type TextInputProps } from "react-native";
+import { Pressable, TextInput } from "react-native-gesture-handler";
 
 import EyeClosedIcon from "@/shared/icons/EyeClosedIcon";
 import EyeOpenedIcon from "@/shared/icons/EyeOpenedIcon";
-import {ThemedView} from "../ThemedView";
+import { ThemedView } from "../ThemedView";
 
 export type InputProps = TextInputProps & {
     isPassword?: boolean;
 };
 
-export function Input({style, isPassword, ...otherProps}: InputProps) {
+export function Input({ style, isPassword, ...otherProps }: InputProps) {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const colorTheme = useColorScheme() ?? "light";
 
@@ -36,8 +36,8 @@ export function Input({style, isPassword, ...otherProps}: InputProps) {
     );
 }
 
-const makeStyles = (isDarkTheme: boolean) =>
-    StyleSheet.create({
+const makeStyles = (isDarkTheme: boolean) => {
+    const styles = StyleSheet.create({
         input: {
             width: "100%",
             height: 40,
@@ -56,3 +56,5 @@ const makeStyles = (isDarkTheme: boolean) =>
             paddingVertical: 8
         }
     });
+    return styles;
+};

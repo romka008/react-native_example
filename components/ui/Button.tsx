@@ -7,9 +7,9 @@ import {
     StyleSheet,
     Text
 } from "react-native";
-import {ThemedView} from "../ThemedView";
+import { ThemedView } from "../ThemedView";
 
-export function Button({text, isLoading, ...props}: PressableProps & {text: string; isLoading?: boolean}) {
+export function Button({ text, isLoading, ...props }: PressableProps & { text: string; isLoading?: boolean }) {
     const animatedValue = new Animated.Value(100);
     const color = animatedValue.interpolate({
         inputRange: [0, 100],
@@ -41,7 +41,8 @@ export function Button({text, isLoading, ...props}: PressableProps & {text: stri
                     style={{
                         ...styles.button,
                         backgroundColor: color
-                    }}>
+                    }}
+                >
                     {!isLoading && <Text style={styles.text}>{text}</Text>}
                     {isLoading && <ActivityIndicator size="large" color={"fff"} />}
                 </Animated.View>

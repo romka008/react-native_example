@@ -1,0 +1,10 @@
+{
+  "arrowParens": "avoid",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "endOfLine": "auto",
+  "tabWidth": 4,
+  "useTabs": false,
+  "trailingComma": "none",
+  "printWidth": 120
+}

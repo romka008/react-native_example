@@ -1,13 +1,13 @@
-import {Colors} from "@/constants/Colors";
-import {useEffect, useState} from "react";
-import {Animated, StyleSheet} from "react-native";
-import {ThemedText} from "../ThemedText";
+import { Colors } from "@/constants/Colors";
+import { useEffect, useState } from "react";
+import { Animated, StyleSheet } from "react-native";
+import { ThemedText } from "../ThemedText";
 
 type ErrorNotificationProps = {
     error?: string;
 };
 
-export const ErrorNotification = ({error}: ErrorNotificationProps) => {
+export const ErrorNotification = ({ error }: ErrorNotificationProps) => {
     const [isShown, setIsShown] = useState(false);
     const animatedValue = new Animated.Value(-100);
 
@@ -38,7 +38,13 @@ export const ErrorNotification = ({error}: ErrorNotificationProps) => {
     }
 
     return (
-        <Animated.View style={{...styles.error, transform: [{translateY: animatedValue}]}} onLayout={onEnter}>
+        <Animated.View
+            style={{
+                ...styles.error,
+                transform: [{ translateY: animatedValue }]
+            }}
+            onLayout={onEnter}
+        >
             <ThemedText style={styles.errorText}>{error}</ThemedText>
         </Animated.View>
     );
