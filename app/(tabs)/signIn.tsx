@@ -9,8 +9,11 @@ import { Button } from "@/components/ui/Button";
 import { ErrorNotification } from "@/components/ui/ErrorNotification";
 import { Input } from "@/components/ui/Input";
 import { useColorScheme } from "@/hooks/useColorScheme.web";
+import { Link } from "expo-router";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-export default function HomeScreen() {
+export default function SignIn() {
+    const [isShowRestoreForm, setIsShowRestoreForm] = useState(false);
     const [formValue, setFormValue] = React.useState({
         email: "",
         password: ""
@@ -45,41 +48,59 @@ export default function HomeScreen() {
         }, 4000);
     };
 
+    const handleRestorePassword = () => {
+        setIsShowRestoreForm(prev => !prev);
+    };
+
+    const textTargetRestore = isShowRestoreForm ? "Вернуться к странице входа" : "Восстановить пароль";
+    const textButtonRestore = isShowRestoreForm ? "Восстановить пароль" : "Войти";
+
     return (
         <>
             <ErrorNotification error={error} />
             <ParallaxScrollView headerBackgroundColor={{ light: "#A1CEDC", dark: "#14151C" }}>
-                <ThemedView style={styles.container}>
-                    <ThemedView style={styles.logotypeContainer}>
-                        <Image source={require("@/assets/icons/react.svg")} style={styles.logo} />
-                        <ThemedText type="title">логотип</ThemedText>
-                    </ThemedView>
-                    <ThemedView style={styles.form}>
-                        <Input
-                            onChangeText={text => setFormValue(prev => ({ ...prev, email: text }))}
-                            textContentType="emailAddress"
-                            value={formValue.email}
-                            placeholder="Email"
-                        />
-                        <Input
-                            onChangeText={text =>
-                                setFormValue(prev => ({
-                                    ...prev,
-                                    password: text
-                                }))
-                            }
-                            textContentType="password"
-                            value={formValue.password}
-                            placeholder="Password"
-                            isPassword
-                        />
+                <SafeAreaProvider>
+                    <SafeAreaView>
+                        <ThemedView style={styles.container}>
+                            <ThemedView style={styles.logotypeContainer}>
+                                <Image source={require("@/assets/icons/react.svg")} style={styles.logo} />
+                                <ThemedText type="title">логотип</ThemedText>
+                            </ThemedView>
+                            <ThemedView style={styles.form}>
+                                <Input
+                                    onChangeText={text => setFormValue(prev => ({ ...prev, email: text }))}
+                                    textContentType="emailAddress"
+                                    value={formValue.email}
+                                    placeholder="Email"
+                                />
+                                {!isShowRestoreForm && (
+                                    <Input
+                                        onChangeText={text =>
+                                            setFormValue(prev => ({
+                                                ...prev,
+                                                password: text
+                                            }))
+                                        }
+                                        textContentType="password"
+                                        value={formValue.password}
+                                        placeholder="Password"
+                                        isPassword
+                                    />
+                                )}
 
-                        <Button onPress={handleClickButton} text="Войти" />
-                    </ThemedView>
-                    <ThemedText type="link" style={styles.linkRecoverPassword}>
-                        Восстановить пароль
-                    </ThemedText>
-                </ThemedView>
+                                <Button onPress={handleClickButton} text={textButtonRestore} />
+                            </ThemedView>
+                            <ThemedText type="link" style={styles.linkRecoverPassword} onPress={handleRestorePassword}>
+                                {textTargetRestore}
+                            </ThemedText>
+                            <Link href={"/explorer"} style={styles.notFound}>
+                                <ThemedText type="link" style={styles.textNotFound}>
+                                    Открыть несуществующий экран
+                                </ThemedText>
+                            </Link>
+                        </ThemedView>
+                    </SafeAreaView>
+                </SafeAreaProvider>
             </ParallaxScrollView>
         </>
     );
@@ -91,7 +112,8 @@ const makeStyles = (isDarkTheme: boolean) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            flex: 1
+            flex: 1,
+            fontFamily: "FiraSans-SemiBold"
         },
         logotypeContainer: {
             display: "flex",
@@ -115,8 +137,16 @@ const makeStyles = (isDarkTheme: boolean) => {
             maxWidth: 450
         },
         linkRecoverPassword: {
+            fontFamily: "FiraSans",
             textAlign: "center",
             paddingTop: 24
+        },
+        notFound: {
+            paddingTop: 20,
+            color: "f9f9f9"
+        },
+        textNotFound: {
+            color: "#213e87"
         }
     });
     return styles;
